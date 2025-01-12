@@ -39,5 +39,5 @@ Build and start the services using Docker Compose:
 Access the services:
 
 Frontend: http://localhost:5000
-Catalog: http://localhost:5001
-Order: http://localhost:5002
+Catalog: http://localhost:5001/add_book
+Order: http://localhost:5002/add_order
