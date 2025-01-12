@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place Order</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('/static/library.jpg'); /* Updated path */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+        h1 {
+            text-align: center;
+            color: #f4a261;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            margin-bottom: 20px;
+            font-size: 36px;
+            border-radius: 8px;
+        }
+        form {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        button {
+            background-color: #2d3e50;
+            color: white;
+            border: 3px solid #f4a261; /* Thicker border */
+            padding: 12px;
+            width: 100%;
+            font-size: 18px; /* Slightly larger font */
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background-color: #f4a261;
+            transform: scale(1.05);
+        }
+        h2 {
+            text-align: center;
+            color: #f4a261;
+            margin-top: 30px;
+        }
+        ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 20px auto;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        li {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            font-size: 16px;
+            text-align: center;
+            color: #fff;
+            width: 100%;
+        }
+        .back-home {
+            display: inline-block;
+            background-color: #f4a261;
+            color: black;
+            text-decoration: none;
+            padding: 12px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            border: 3px solid #2d3e50; /* Thicker border */
+            border-radius: 8px;
+            margin: 30px auto;
+            display: block;
+            max-width: 200px;
+            text-align: center;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .back-home:hover {
+            background-color: #2d3e50;
+            color: #f4a261;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <h1>Place an Order</h1>
+    <form action="/add_order" method="POST">
+        <label for="name">Customer Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="book_id">Book ID:</label>
+        <input type="text" id="book_id" name="book_id" required>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" required>
+
+        <button type="submit">Place Order</button>
+    </form>
+
+    <h2>Available Books:</h2>
+    <ul>
+        {% for book in books %}
+            <li>{{ book.title }} - ID: {{ book.book_id }} (Stock: {{ book.stock }})</li>
+        {% endfor %}
+    </ul>
+
+    <a href="http://localhost:5000/" class="back-home">Go Back Home</a>
+</body>
+</html>

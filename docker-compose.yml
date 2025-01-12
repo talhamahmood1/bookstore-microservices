@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+  catalog:
+    build: ./catalog
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./catalog/books.db:/app/books.db  # Persist the books database
+    networks:
+      - bookstore
+
+  order:
+    build: ./order
+    ports:
+      - "5002:5002"
+    volumes:
+      - ./order/orders.db:/app/orders.db  # Persist the orders database
+    networks:
+      - bookstore
+    depends_on:
+      - catalog
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5000:5000"
+    networks:
+      - bookstore
+    depends_on:
+      - catalog
+      - order
+
+networks:
+  bookstore:
+    driver: bridge
+

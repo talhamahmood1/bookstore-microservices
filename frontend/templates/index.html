@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookstore</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('/static/library.jpg'); /* Add your image path */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffcb77;
+            background-color: #333;
+            padding: 20px 30px;
+            margin-top: 30px;
+            font-size: 42px;
+            border-radius: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            text-align: center;
+            color: #ffcb77;
+            font-size: 28px;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+
+        /* Book List Styles */
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column; /* Stack the items vertically */
+            align-items: center; /* Center-align items horizontally */
+            gap: 20px;
+            width: 100%; /* Take full width */
+        }
+
+        li {
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+            border: 2px solid #ffcb77;
+            border-radius: 12px;
+            padding: 20px;
+            width: 80%; /* Make the box responsive */
+            max-width: 500px; /* Limit the width */
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        li span {
+            display: block;
+            font-size: 18px;
+            margin: 8px 0;
+            color: #333;
+        }
+
+        li .title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff7e67;
+        }
+
+        /* Button Styles */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center-align buttons */
+            margin-top: 30px;
+            gap: 15px; /* Add spacing between buttons */
+        }
+
+        a {
+            display: inline-block;
+            background-color: #2f4454;
+            color: #ffcb77;
+            padding: 15px 20px;
+            font-size: 18px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.2s;
+            width: 280px;
+        }
+
+        a:hover {
+            background-color: #ffb347;
+            color: #333;
+            transform: scale(1.05);
+        }
+
+        a:active {
+            transform: scale(0.98);
+        }
+
+        /* Container for book list */
+        .book-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Bookstore</h1>
+    <div class="book-container">
+        <h2>Available Books</h2>
+        <ul>
+            {% for book in books %}
+            <li>
+                <span class="title">{{ book.title }}</span>
+                <span>ID: {{ book.book_id }}</span>
+                <span>Price: ${{ book.price }}</span>
+                <span>Stock: {{ book.stock }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="button-container">
+        <a href="http://localhost:5001/add_book">Add a New Book</a>
+        <a href="http://localhost:5002/add_order">Place an Order</a>
+    </div>
+</body>
+</html>
