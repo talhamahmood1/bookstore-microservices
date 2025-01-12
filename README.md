@@ -27,13 +27,14 @@ A microservices-based bookstore application built using Flask and Docker.
 
 Clone the repository:
    
-   git clone https://github.com/your-username/bookstore-microservices.git
+   git clone https://github.com/talhamahmood1/bookstore-microservices.git
+   
    cd bookstore-microservices
 
 Build and start the services using Docker Compose:
 
 
-docker compose up --build
+**docker compose up --build**
 
 Access the services:
 
