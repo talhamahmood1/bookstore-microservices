@@ -1,24 +1,9 @@
-from flask import Flask, request, render_template, jsonify
-import requests
+from flask import Flask, request, render_template
 import sqlite3
+import requests
 
-app = Flask(__name__, static_folder='static')
-
-
-CATALOG_SERVICE_URL = 'http://catalog:5001/update_book'
-ORDERS_SERVICE_URL = 'http://order:5002/orders'
-
-# Initialize SQLite database
-def init_db():
-    conn = sqlite3.connect('orders.db')
-    cursor = conn.cursor()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS orders (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        customer_name TEXT NOT NULL,
-                        book_id INTEGER NOT NULL,
-                        quantity INTEGER NOT NULL)''')
-    conn.commit()
-    conn.close()
+# Initialize the Flask app
+app = Flask(__name__)
 
 @app.route('/add_order', methods=['GET', 'POST'])
 def add_order():
@@ -59,13 +44,17 @@ def add_order():
         else:
             return 'Failed to fetch books from Catalog. <a href="/add_order">Try again</a>'
 
-    # Fetch all books to display in the form
+    # Fetch all books and orders to display in the form
     response = requests.get('http://catalog:5001/books')
     books = response.json() if response.status_code == 200 else []
+
+    conn = sqlite3.connect('orders.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM orders')
+    orders = [{'id': row[0], 'customer_name': row[1], 'book_id': row[2], 'quantity': row[3]} for row in cursor.fetchall()]
+    conn.close()
     
-    return render_template('add_order.html', books=books)
+    return render_template('add_order.html', books=books, orders=orders)
 
-if __name__ == '__main__':
-    init_db()
-    app.run(host='0.0.0.0', port=5002)
-
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0", port=5002)

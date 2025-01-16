@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add a New Book</title>
+    <title>Book Management</title>
     <style>
         body {
-            font-family: 'Poppins', sans-serif; /* Modern font */
-            background-image: url('/static/library.jpg'); /* Background image */
+            font-family: 'Poppins', sans-serif;
+            background-image: url('/static/library.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             margin: 0;
             padding: 0;
-            color: #fdfdfd; /* Soft white text color */
+            color: #fdfdfd;
         }
         h1 {
             text-align: center;
-            color: #ffcb77; /* Warm accent color */
-            background-color: rgba(0, 0, 0, 0.6);
+            color: #ffcb77;
+            background-color: rgba(0, 0, 0, 0.6); /* Darker semi-transparent black background */
             padding: 20px 10px;
             margin-bottom: 30px;
             font-size: 40px;
@@ -26,95 +26,133 @@
             font-weight: 700;
             letter-spacing: 2px;
         }
+        .container {
+            display: flex;
+            flex-direction: column; /* Stack forms vertically */
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+        }
         form {
-            background-color: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 40px;
+            background-color: rgba(0, 0, 0, 0.6); /* Darker semi-transparent black background */
+            padding: 20px;
             border-radius: 12px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-            max-width: 400px;
-            margin: 0 auto;
             border: 1px solid rgba(255, 255, 255, 0.3);
+            max-width: 400px;
+            width: 100%;
+        }
+        .add-book {
+            padding: 30px;
+            border: 2px solid #ffcb77;
+            flex: 1.5;
+        }
+        h2 {
+            text-align: center;
+            font-size: 24px;
+            color: #ffcb77;
+            margin-bottom: 15px;
         }
         label {
             display: block;
-            font-size: 18px;
+            font-size: 20px;
             margin-bottom: 8px;
             color: #ffcb77;
-            font-weight: 600;
+            font-weight: bold;
         }
         input[type="text"], input[type="number"] {
-            width: 100%;
-            padding: 12px 15px;
-            margin-bottom: 20px;
+            width: 90%; /* Reduced from 100% to 90% */
+            padding: 14px;
+            margin-bottom: 15px;
             border: 2px solid #ffcb77;
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 18px;
+            font-weight: bold;
             background-color: rgba(255, 255, 255, 0.9);
             color: #333;
-            outline: none;
-            transition: border-color 0.3s ease-in-out;
-        }
-        input[type="text"]:focus, input[type="number"]:focus {
-            border-color: #ffb347; /* Subtle highlight on focus */
         }
         button {
             background-color: #2f4454;
             color: #ffcb77;
-            border: none;
-            padding: 14px 20px;
-            width: 100%;
-            font-size: 18px;
-            font-weight: 600;
+            border: 2px solid #ffcb77;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
-            border-radius: 8px;
+            border-radius: 10px;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
         button:hover {
             background-color: #ffb347;
             color: #333;
-            transform: scale(1.05); /* Slight enlarge effect */
+            transform: scale(1.05);
         }
-        button:active {
-            transform: scale(0.98); /* Press-down effect */
-        }
-        .back-link {
-            display: block;
+        .home-link {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 30px;
+        }
+        .home-link a {
+            display: inline-block;
+            text-align: center;
+            background-color: #2f4454;
             color: #ffcb77;
-            font-size: 18px;
-            font-weight: 600;
+            border: 2px solid #ffcb77;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 10px;
             text-decoration: none;
-            transition: color 0.3s ease-in-out;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
-        .back-link:hover {
-            color: #ffb347;
-        }
-        .back-link:active {
-            color: #e6a037;
+        .home-link a:hover {
+            background-color: #ffb347;
+            color: #333;
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
-    <h1>Add a New Book</h1>
-    <form method="POST">
-        <label for="book_id">Book ID:</label>
-        <input type="text" id="book_id" name="book_id" placeholder="Enter book ID" required>
+    <h1>Book Management</h1>
+    <div class="container">
+        <!-- Add Book Section (Highlighted and Enlarged) -->
+        <form method="POST" action="/add_book" class="add-book">
+            <h2>Add a New Book</h2>
+            <label for="book_id">Book ID:</label>
+            <input type="text" id="book_id" name="book_id" placeholder="Enter book ID" required>
+            <label for="title">Book Title:</label>
+            <input type="text" id="title" name="title" placeholder="Enter book title" required>
+            <label for="price">Price:</label>
+            <input type="number" step="0.01" id="price" name="price" placeholder="Enter price" required>
+            <label for="stock">Stock Quantity:</label>
+            <input type="number" id="stock" name="stock" placeholder="Enter stock quantity" required>
+            <button type="submit">Add Book</button>
+        </form>
 
-        <label for="title">Book Title:</label>
-        <input type="text" id="title" name="title" placeholder="Enter book title" required>
+        <!-- Update Book Section -->
+        <form method="POST" action="/update_book">
+            <h2>Update Book</h2>
+            <label for="update_book_id">Book ID:</label>
+            <input type="text" id="update_book_id" name="book_id" placeholder="Enter book ID" required>
+            <label for="new_title">New Title:</label>
+            <input type="text" id="new_title" name="title" placeholder="Enter new title">
+            <label for="new_price">New Price:</label>
+            <input type="number" step="0.01" id="new_price" name="price" placeholder="Enter new price">
+            <label for="new_stock">New Stock Quantity:</label>
+            <input type="number" id="new_stock" name="stock" placeholder="Enter new stock quantity">
+            <button type="submit">Update Book</button>
+        </form>
 
-        <label for="price">Price:</label>
-        <input type="number" step="0.01" id="price" name="price" placeholder="Enter price" required>
-
-        <label for="stock">Stock Quantity:</label>
-        <input type="number" id="stock" name="stock" placeholder="Enter stock quantity" required>
-
-        <button type="submit">Add Book</button>
-    </form>
-
-    <a class="back-link" href="http://localhost:5000/">Back to Home</a>
+        <!-- Delete Book Section -->
+        <form method="POST" action="/delete_book">
+            <h2>Delete Book</h2>
+            <label for="delete_book_id">Book ID:</label>
+            <input type="text" id="delete_book_id" name="book_id" placeholder="Enter book ID" required>
+            <button type="submit">Delete Book</button>
+        </form>
+    </div>
+    <div class="home-link">
+        <a href="http://localhost:5000">Go Back Home</a>
+    </div>
 </body>
 </html>
