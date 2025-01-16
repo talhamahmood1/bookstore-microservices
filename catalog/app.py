@@ -45,19 +45,16 @@ def add_book():
 @app.route('/update_book', methods=['POST'])
 def update_book():
     try:
-        book_id = int(request.form['book_id'])
-        new_title = request.form.get('title')
-        new_price = request.form.get('price')
-        new_stock = request.form.get('stock')
+        # Get the JSON data
+        data = request.get_json()
+
+        # Extract the data
+        book_id = data['book_id']
+        new_stock = data['stock']
 
         with sqlite3.connect('books.db') as conn:
             cursor = conn.cursor()
-            if new_title:
-                cursor.execute('UPDATE books SET title = ? WHERE book_id = ?', (new_title, book_id))
-            if new_price:
-                cursor.execute('UPDATE books SET price = ? WHERE book_id = ?', (float(new_price), book_id))
-            if new_stock:
-                cursor.execute('UPDATE books SET stock = ? WHERE book_id = ?', (int(new_stock), book_id))
+            cursor.execute('UPDATE books SET stock = ? WHERE book_id = ?', (new_stock, book_id))
             conn.commit()
         return 'Book updated successfully! <a href="/add_book">Go Back</a>'
     except Exception as e:

@@ -24,7 +24,7 @@ def add_order():
                 if book['stock'] >= quantity:
                     # Decrease stock and place the order
                     new_stock = book['stock'] - quantity
-                    update_response = requests.post(CATALOG_SERVICE_URL, json={'book_id': book_id, 'stock': new_stock})
+                    update_response = requests.post('http://catalog:5001/update_book', json={'book_id': book_id, 'stock': new_stock})
 
                     if update_response.status_code == 200:
                         conn = sqlite3.connect('orders.db')
